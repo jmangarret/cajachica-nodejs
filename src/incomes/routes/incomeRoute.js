@@ -1,6 +1,7 @@
 const express = require('express');
 const incomeRoute = express.Router();
-const getAllIncome = require('../models/getAll');
+const getIncome = require('../controller/getIncomes');
+
 function preValidacion(req, res, next) {
     console.log('Time: ', Date.now());
     next();
@@ -8,22 +9,34 @@ function preValidacion(req, res, next) {
 // middleware that is specific to this incomeRoute
 incomeRoute.use(preValidacion);
 
-incomeRoute.get('/', (req, res) => {
-    const response = getAllIncome();
+incomeRoute.get('/', async (req, res) => {
+    const response = await getIncome.searchAll();
     res.send(response);
 });
 
-incomeRoute.get('/user/:id/:cedula', (req, res) => {
-    const {id, cedula } = req.params;
-    res.send('Hello user gggg' + id + cedula);
+incomeRoute.get('/date/:date', async (req, res) => {
+    const { date } = req.params;
+    const response = await getIncome.searchByDate(date);
+    res.send(response);
 });
 
-incomeRoute.post('/', function (req, res) {
-    const data = req.body;
-    console.log(data);
-    res.send(req.body);
+incomeRoute.get('/type/:type', async (req, res) => {
+    const { type } = req.params;
+    const response = await getIncome.searchByType(type);
+    res.send(response);
 });
+
+incomeRoute.get('/numdoc/:num', async (req,res) => {
+    const { num } = req.params;
+    const response = await getIncome.searchByNumDoc(num);
+    res.send(response);
+});
+
+incomeRoute.get('/typeandnumdoc/:type/:num', async (req, res) => {
+    const { type, num } = req.params;
+    const response = await getIncome.searchByTypeAndNumDoc(type,num);
+    res.send(response);
+})
 
 
 module.exports = incomeRoute;
-
