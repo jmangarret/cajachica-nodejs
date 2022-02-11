@@ -82,7 +82,7 @@ const getIncomes = {
                 status: 1
             })
         } catch (error) {
-            
+            return error
         }
     }
     
