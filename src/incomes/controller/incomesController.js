@@ -66,6 +66,24 @@ const getIncomes = {
         } catch (error) {
             return error;
         }
+    },
+
+    newIncome: async (data) => {
+        try {
+            const insert = await incomeModel.create({
+                idPettyCash: data.idPettyCash,
+                date: data.date,
+                incomeType: data.incomeType,
+                numberDoc: data.numberDoc,
+                client: data.client,
+                concept: data.concept,
+                amount: data.amount,
+                userId: data.userId,
+                status: 1
+            })
+        } catch (error) {
+            
+        }
     }
     
 }

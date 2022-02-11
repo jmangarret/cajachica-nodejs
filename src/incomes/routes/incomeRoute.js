@@ -1,6 +1,6 @@
 const express = require('express');
 const incomeRoute = express.Router();
-const getIncome = require('../controller/getIncomes');
+const getIncome = require('../controller/incomesController');
 
 function preValidacion(req, res, next) {
     console.log('Time: ', Date.now());
@@ -36,6 +36,11 @@ incomeRoute.get('/typeandnumdoc/:type/:num', async (req, res) => {
     const { type, num } = req.params;
     const response = await getIncome.searchByTypeAndNumDoc(type,num);
     res.send(response);
+})
+
+incomeRoute.post('/new', async (req, res) => {
+    const response = await getIncome.newIncome(req.body)
+    return res.send(response)
 })
 
 
