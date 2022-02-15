@@ -81,6 +81,41 @@ const getIncomes = {
                 userId: data.userId,
                 status: 1
             })
+            return insert
+        } catch (error) {
+            return error
+        }
+    },
+
+    updateIncome: async (id, data) => {
+        try { 
+            const updateData = await incomeModel.update({ 
+                incomeType: data.incomeType,
+                numberDoc: data.numberDoc,
+                client: data.client,
+                concept: data.concept,
+                userId: data.userId
+            },{
+                where: {
+                    id
+                }
+            });
+            return updateData
+        } catch (error) {
+            return error
+        }
+    }, 
+
+    deleteIncome: async (id) => {
+        try {
+            const deleteIncome = await incomeModel.update({
+                status: 0
+            },{
+                where: {
+                    id
+                }
+            })
+            return deleteIncome
         } catch (error) {
             return error
         }

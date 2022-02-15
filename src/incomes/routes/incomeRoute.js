@@ -40,7 +40,44 @@ incomeRoute.get('/typeandnumdoc/:type/:num', async (req, res) => {
 
 incomeRoute.post('/new', async (req, res) => {
     const response = await getIncome.newIncome(req.body)
-    return res.send(response)
+    if (!response) {
+        res.status(400).send({
+            status: "error",
+            message: "Create fail"
+        })
+    }
+    return res.status(200).send({
+        satus: "success",
+        data: response
+    })
+})
+
+incomeRoute.put('/update/:id', async (req, res) => {
+    const response = await getIncome.updateIncome(req.params.id, req.body)
+    if (!response) {
+        res.status(400).send({
+            status: "error",
+            message: "Update fail"
+        })
+    }
+    return res.status(200).send({
+        satus: "success",
+        data: response
+    })
+})
+
+incomeRoute.put('/detele/:id', async (req, res) => {
+    const response = await getIncome.deleteIncome(req.params.id)
+    if (!response) {
+        res.status(400).send({
+            status: "error",
+            message: "Delete fail"
+        })
+    }
+    return res.status(200).send({
+        satus: "success",
+        data: response
+    })
 })
 
 
