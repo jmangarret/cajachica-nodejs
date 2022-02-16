@@ -9,7 +9,7 @@ Income.init({
         primaryKey: true
     },
     idPettyCash: DataTypes.INTEGER,
-    date: DataTypes.DATE,
+    date: DataTypes.DATEONLY,
     incomeType: DataTypes.STRING(50),
     numberDoc: DataTypes.STRING(50),
     client: DataTypes.STRING(50),
